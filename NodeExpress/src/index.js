@@ -13,10 +13,10 @@ app.use(express.json());
 app.use(cors());
 
 // BASE DE DATOS
-//require('./config/connection');
+require('./config/connection');
 
 // RUTAS
-//app.use(require('./routes/prueba.js'));
+app.use(require('./routes/categoriasRoutes'));
 
 
 // LEVANTAR EL SERVIDOR

@@ -4,7 +4,7 @@ const objectConnection = {
     "host": "localhost",
     "port": "3306",
     "user": "root",
-    "password": "Co1234567",
+    "password": "12345",
     "database": "crud_node"
 }
 
