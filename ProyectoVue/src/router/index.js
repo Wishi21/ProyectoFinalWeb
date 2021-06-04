@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Categorias from '../views/Categorias.vue'
+import Categorias from '../views/Categorias/Categorias'
 
 Vue.use(VueRouter)
 

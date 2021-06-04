@@ -1,9 +1,14 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/categorias">Categorias</router-link>
-    </div>
+<template >
+  <div id="app" >
+    <b-nav tabs align="center" class="mb-3">
+        <b-nav-item tag="h1"  to="/">
+          Inicio
+        </b-nav-item>
+        <b-nav-item tag="h1"  to="/categorias">
+          Categorias
+        </b-nav-item>
+    </b-nav>
+    <notifications position="top right" />
     <router-view/>
   </div>
 </template>
@@ -17,16 +22,4 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
