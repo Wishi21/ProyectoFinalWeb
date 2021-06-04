@@ -38,12 +38,11 @@ function crear(req, res){
     if(connection){
         console.log(req.body);
         const categorias = req.body;
-
-        if(!categorias.nombre){
+        if(!categorias.Nombre){
             return res.status(400).send({error: true, mensaje: "El nombre es obligatorio"});
         }
 
-        if(categorias.length <= 50){
+        if(categorias.length > 50){
             return res.status(400).send({error: true, mensaje: "La longitud maxima es de 50 caracteres"});
         }
 
