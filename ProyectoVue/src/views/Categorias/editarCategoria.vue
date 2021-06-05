@@ -1,14 +1,14 @@
 <template>
   <div>
       <b-form @submit.prevent="guardarCategoria()">
-      <Form
+      <Input
         v-model="categoria.ID"
         id="ID"
         titulo="ID"
         class="mb-2"
         disabled="true"
       />    
-      <Form
+      <Input
         v-model="categoria.Nombre"
         id="Nombre"
         titulo="Nombre"
@@ -30,13 +30,13 @@
 <script>
 import Vue from 'vue';
 import { mapActions} from 'vuex';
-import Form from "../../components/form";
+import Input from "../../components/input";
 
 export default {
 name: 'Editar Categoria',
 props: ['idprueba'],
 components: {
-    Form,
+    Input,
   },
   data() {
     return {
