@@ -16,4 +16,11 @@ routes.post('/personal', personal.crearPersonal );
 routes.put('/personal/:id', personal.editarPersonal);
 routes.delete('/personal/:id', personal.eliminarPersonal);
 
+var tickets = require('../controllers/ticketsController');
+routes.get('/tickets', tickets.listarTickets);
+routes.get('/tickets/:id', tickets.obtenerTicket);
+routes.post('/tickets', tickets.crearTicket );
+routes.put('/tickets/:id', tickets.editarTicket);
+routes.delete('/tickets/:id', tickets.eliminarTicket);
+
 module.exports = routes;
