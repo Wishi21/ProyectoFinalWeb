@@ -5,7 +5,7 @@
           v-model="persona.ID"
           id="ID"
           titulo="ID"
-          disabled= true
+          :disabled="true"
           class="mb-2"
         />
        <Input
@@ -58,7 +58,7 @@ import { mapActions} from 'vuex';
 import Input from "../../components/input";
 
 export default {
-name: 'Editar Persona',
+name: 'EditarPersona',
 props: ['idActual'],
 components: {
     Input,
@@ -70,7 +70,7 @@ components: {
         Nombre: "",
         Apellidos: "",
         Telefono: "",
-        Direccion: "", 
+        Direccion: ""
       },
       erroresValidacion: false,
     };
@@ -88,12 +88,12 @@ computed: {
     }
 },
 methods: {
-    ...mapActions(['obtenerPersonal', 'editarPersonal']),
+    ...mapActions(['obtenerPersona', 'editarPersona']),
     guardarPersona() {
       if (this.validacionNombre && this.validacionApellidos) {
         this.erroresValidacion = false;
         //Guardar
-         this.editarPersonal({
+         this.editarPersona({
           id: this.idActual,
           params: this.persona,
           onComplete: (response) => {
@@ -116,7 +116,7 @@ methods: {
     }
 },
 created() {
-    this.obtenerPersonal({
+   this.obtenerPersona({
         id: this.idActual,
         onComplete: (response) => {
             Vue.set(this, 'persona', response.data.data);

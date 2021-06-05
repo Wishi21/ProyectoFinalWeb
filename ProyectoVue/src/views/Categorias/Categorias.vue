@@ -22,7 +22,7 @@
             <AgregarCategoria/>
           </b-modal>
           <b-modal id="modal-2" title="Editar Categorias" hide-footer>
-              <EditarCategoria :idprueba="idActual" />
+              <EditarCategoria :idActual="idActual" />
           </b-modal>
             
           
@@ -59,7 +59,7 @@ export default {
     ...mapState(["categorias", "loading"]),
   },
   methods: {
-      ...mapActions(["setCategorias","eliminarCategoria"]),
+      ...mapActions(["listarCategorias","eliminarCategoria"]),
       cambiarID(id){
         this.idActual = id
       },
@@ -84,7 +84,7 @@ export default {
                 type: "success",
                 title: response.data.mensaje,
               });
-              setTimeout(() => this.setCategorias(), 1000);
+              setTimeout(() => this.listarCategorias(), 1000);
             },
           });
         }
@@ -107,7 +107,7 @@ export default {
     }
   },
   mounted() {
-    this.setCategorias();
+    this.listarCategorias();
   },
 };
 </script>

@@ -6,7 +6,7 @@
         id="ID"
         titulo="ID"
         class="mb-2"
-        disabled="true"
+        :disabled="true"
       />    
       <Input
         v-model="categoria.Nombre"
@@ -33,8 +33,8 @@ import { mapActions} from 'vuex';
 import Input from "../../components/input";
 
 export default {
-name: 'Editar Categoria',
-props: ['idprueba'],
+name: 'EditarCategoria',
+props: ['idActual'],
 components: {
     Input,
   },
@@ -59,15 +59,11 @@ methods: {
     guardarCategoria() {
       if (this.validacionNombre) {
         this.erroresValidacion = false;
-
-        //Guardar
+        
          this.editarCategoria({
-          
-          id: this.idprueba,
+          id: this.idActual,
           params: this.categoria,
           onComplete: (response) => {
-           
-           console.log(response.data);
             this.$notify({
               type: 'success', 
               title: response.data.mensaje,
@@ -75,7 +71,6 @@ methods: {
             this.$router.go()
           },
           onError: (error) => {
-            console.log(error.response.data.mensaje);
             this.$notify({
               type: 'error', 
               title: error.response.data.mensaje,
@@ -89,10 +84,9 @@ methods: {
 },
 created() {
     this.obtenerCategoria({
-        id: this.idprueba,
+        id: this.idActual,
         onComplete: (response) => {
             Vue.set(this, 'categoria', response.data.data);
-            console.log(this.categoria);
         }
     })
     

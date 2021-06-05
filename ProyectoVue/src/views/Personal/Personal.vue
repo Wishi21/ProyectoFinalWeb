@@ -19,7 +19,7 @@
             <AgregarPersonal/>
           </b-modal>
           <b-modal id="modal-editar" title="Editar Personal" hide-footer>
-              <EditarPersonal :idActual="idAux" />
+              <EditarPersonal :idActual="idActual" />
           </b-modal>
       </b-container>
   </div>
@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      idAux : Number,
+      idActual : Number,
       campos: [
         { key: "ID"},
         { key: "Nombre"},
@@ -56,9 +56,9 @@ export default {
     ...mapState(["personal", "loading"]),
   },
   methods: {
-      ...mapActions(["listarPersonal","eliminarPersonal"]),
+      ...mapActions(["listarPersonal","eliminarPersona"]),
       cambiarID(id){
-        this.idAux = id
+        this.idActual = id
       },
       onEliminar(item) {
          this.$bvModal
@@ -74,7 +74,7 @@ export default {
         })
         .then((value) => {
           if (value) {
-            this.eliminarPersonal({
+            this.eliminarPersona({
             id: item.item.ID,
             onComplete: (response) => {
               this.$notify({
