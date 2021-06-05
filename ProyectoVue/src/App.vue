@@ -7,6 +7,9 @@
         <b-nav-item tag="h1"  to="/categorias">
           Categorias
         </b-nav-item>
+         <b-nav-item tag="h1"  to="/personal">
+          Personal
+        </b-nav-item>
     </b-nav>
     <notifications position="top right" />
     <router-view/>
