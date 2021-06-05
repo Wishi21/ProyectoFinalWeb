@@ -1,7 +1,7 @@
 <template>
   <div>
       <b-form @submit.prevent="guardarCategoria()">
-        <Form
+        <Input
           v-model="categoria.Nombre"
           id="Nombre"
           titulo="Nombre"
@@ -23,13 +23,14 @@
 
 <script>
 import { mapActions } from "vuex";
-import Form from "../../components/form";
+import Input from '../../components/input.vue';
 
 export default {
   name: "Agregar Categoria",
   components: {
-    Form,
+    Input,
   },
+
   data() {
     return {
       categoria: {
