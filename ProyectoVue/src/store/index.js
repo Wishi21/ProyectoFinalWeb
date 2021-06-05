@@ -30,7 +30,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setCategorias({commit}){
+    //Categorias
+    listarCategorias({commit}){
       commit("SET_LOADING", true);
       
       axios.get('http://localhost:3000/categorias')
@@ -72,25 +73,25 @@ export default new Vuex.Store({
       })
       .finally(() => commit('SET_LOADING', false))
     },
-    obtenerPersonal({commit}, {id, onComplete, onError}) {
+    obtenerPersona({commit}, {id, onComplete, onError}) {
       axios.get(`http://localhost:3000/personal/${id}`)
       .then( response => {
-        commit('SET_PERSONAL', response.data.data);
+        commit('SET_PERSONA', response.data.data);
         onComplete(response)
       })
       .catch(onError)
     },
-    crearPersonal({commit}, {params, onComplete, onError}) {
+    crearPersona({commit}, {params, onComplete, onError}) {
       axios.post('http://localhost:3000/personal', params)
       .then(onComplete)
       .catch(onError)
     },
-    eliminarPersonal({commit}, {id, onComplete, onError}){
+    eliminarPersona({commit}, {id, onComplete, onError}){
       axios.delete(`http://localhost:3000/personal/${id}`)
       .then(onComplete)
       .catch(onError)
     },
-    editarPersonal({commit}, {id, params, onComplete, onError} ) {
+    editarPersona({commit}, {id, params, onComplete, onError} ) {
       axios.put(`http://localhost:3000/personal/${id}`, params)
       .then(onComplete)
       .catch(onError)

@@ -80,12 +80,12 @@ export default {
 
   },
   methods: {
-    ...mapActions(["crearPersonal"]),
+    ...mapActions(["crearPersona"]),
     guardarPersona() {
       if (this.validacionNombre && this.validacionApellidos) {
         this.erroresValidacion = false;
         //Guardar
-        this.crearPersonal({
+        this.crearPersona({
           params: this.persona,
           onComplete: (response) => {
             this.$notify({
