@@ -1,49 +1,43 @@
 <template>
-  <div class="categorias">
+  <div class="personal">
       <b-container>
           <b-row>
               <b-col>
-                  <b-button variant="primary" v-b-modal.modal-1>Agregar</b-button>
+                  <b-button variant="primary" v-b-modal.modal-agregar>Agregar</b-button>
               </b-col>
           </b-row>
 
            <b-row>
-               <Table :items="categorias" :fields="campos" :busy="loading">
+               <Table :items="personal" :fields="campos" :busy="loading">
                     <template slot="actions" slot-scope="{ item }">
-                        <!--<b-button class="me-1" @click="onEditar(item)">Editar</b-button>-->
-                        <b-button class="me-1" v-b-modal.modal-2 @click="cambiarID(item.item.ID)">Editar</b-button>
-                          
+                        <b-button class="me-1" v-b-modal.modal-editar @click="cambiarID(item.item.ID)">Editar</b-button>
                         <b-button @click="onEliminar(item)">Eliminar</b-button> 
                     </template>
                 </Table>
-          </b-row>
-          
-          <b-modal id="modal-1" title="Agregar Categorias" hide-footer>
-            <AgregarCategoria/>
+          </b-row>          
+          <b-modal id="modal-agregar" title="Agregar Personal" hide-footer>
+            <AgregarPersonal/>
           </b-modal>
-          <b-modal id="modal-2" title="Editar Categorias" hide-footer>
-              <EditarCategoria :idActual="idActual" />
+          <b-modal id="modal-editar" title="Editar Personal" hide-footer>
+              <EditarPersonal :idActual="idActual" />
           </b-modal>
-            
-          
-
       </b-container>
   </div>
 </template>
 
 <script>
 import Table from "../../components/tabla";
-import EditarCategoria from "./editarCategoria";
-import AgregarCategoria from "./agregarCategoria";
+import EditarPersonal from "./editarPersonal";
+import AgregarPersonal from "./agregarPersonal";
 
 
 import { mapState, mapActions } from "vuex";
 export default {
-  name: "Categorias",
+  name: "Personal",
   components: {
     Table,
-    AgregarCategoria,
-    EditarCategoria,
+    AgregarPersonal,
+    EditarPersonal,
   },
   data() {
     return {
@@ -51,22 +45,25 @@ export default {
       campos: [
         { key: "ID"},
         { key: "Nombre"},
+        { key: "Apellidos"},
+        { key: "Telefono"},
+        { key: "Direccion"},
         { key: "actions", label: "Acciones" }
       ],
     };
   },
   computed: {
-    ...mapState(["categorias", "loading"]),
+    ...mapState(["personal", "loading"]),
   },
   methods: {
-      ...mapActions(["listarCategorias","eliminarCategoria"]),
+      ...mapActions(["listarPersonal","eliminarPersona"]),
       cambiarID(id){
         this.idActual = id
       },
       onEliminar(item) {
          this.$bvModal
         .msgBoxConfirm("Esta opción no se puede deshacer.", {
-          title: "Eliminar Categoria",
+          title: "Eliminar Personal",
           size: "sm",
           buttonSize: "sm",
           okVariant: "danger",
@@ -77,14 +74,14 @@ export default {
         })
         .then((value) => {
           if (value) {
-            this.eliminarCategoria({
+            this.eliminarPersona({
             id: item.item.ID,
             onComplete: (response) => {
               this.$notify({
                 type: "success",
                 title: response.data.mensaje,
               });
-              setTimeout(() => this.listarCategorias(), 1000);
+              setTimeout(() => this.listarPersonal(), 1000);
             },
           });
         }
@@ -95,19 +92,10 @@ export default {
           title: error.data.mensaje
         })
       });
-    },
-    onEditar(){
-     
-      //this.$router.push({
-        //name: "Editar",
-       // params: {
-     //     id: item.item.id,
-   //     },
- //     });
     }
   },
   mounted() {
-    this.listarCategorias();
+    this.listarPersonal();
   },
 };
 </script>

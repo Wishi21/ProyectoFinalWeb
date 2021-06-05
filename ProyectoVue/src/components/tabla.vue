@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-table stripe hover :busy="busy" :items="items" :fields="fields">
+    <b-table striped hover :busy="busy" :items="items" :fields="fields">
 
       <template #table-busy>
         <div class="text-center text-danger my-2">
@@ -30,4 +30,3 @@ export default {
 };
 </script>
 
-<style></style>
