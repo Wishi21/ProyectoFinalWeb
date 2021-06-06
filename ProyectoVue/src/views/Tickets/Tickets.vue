@@ -8,7 +8,7 @@
           </b-row>
 
            <b-row>
-               <Table :items="items" :fields="campos" :busy="loading">
+               <Table :items="tickets" :fields="campos" :busy="loading">
                     <template slot="actions" slot-scope="{ item }">
                         <b-row>
                           <b-col>
@@ -42,8 +42,6 @@ import Table from "../../components/tabla";
 import EditarTicket from "./editarTicket";
 import AgregarTicket from "./agregarTicket";
 import EstatusTicket from "./estatusTicket";
-
-
 import { mapState, mapActions } from "vuex";
 export default {
   name: "Tickets",
@@ -55,7 +53,6 @@ export default {
   },
   data() {
     return {
-      items : [],
       idActual : Number,
       campos: [
         { key: "ID"},
@@ -74,56 +71,6 @@ export default {
   },
   methods: {
       ...mapActions(["listarTickets","eliminarTicket","listarPersonal","listarCategorias"]),
-
-      editarTabla() {
-          var Aux = [], nombrePersonal=[], nombreCategoria=[], nombreEstatus="",nombrePrioridad="";
-          Object.keys(this.tickets).forEach(key => {
-              const ticket = this.tickets[key];
-              nombrePersonal = this.personal.filter(function(elem){
-                  if(elem.ID == ticket.Personal) return elem;
-          });
-          nombrePersonal = nombrePersonal[0].Nombre;
-            
-          nombreCategoria = this.categorias.filter(function(elem){
-              if(elem.ID == ticket.Categorias) return elem;
-          });
-          nombreCategoria = nombreCategoria[0].Nombre;
-          
-          switch(ticket.Estatus){
-              case "ABT":
-                  nombreEstatus="Abierto"
-                  break;
-              case "ESP":
-                  nombreEstatus="En Espera"
-                  break;
-              case "FIN":
-                  nombreEstatus="Finalizado"
-                  break;
-          }
-          console.log(ticket.Prioridad);
-          switch(ticket.Prioridad){
-              case "1":
-                  console.log("entro1");
-                  nombrePrioridad="BAJA";
-                  break;
-              case "2":
-                  nombrePrioridad="MEDIA";
-                  break;
-              case "3":
-                  nombrePrioridad="ALTA";
-                  break;
-          }
-          Aux = Aux.concat({
-              Nombre: ticket.Nombre,
-              Descripcion: ticket.Descripcion,
-              Prioridad: nombrePrioridad,
-              Personal: nombrePersonal,
-              Categorias: nombreCategoria,
-              Estatus: nombreEstatus,
-              });
-          })
-          this.items=Aux;
-      },
       cambiarID(id){
         this.idActual = id
       },
@@ -161,11 +108,10 @@ export default {
       });
     }
   },
-  mounted() {
+  created() {
     this.listarPersonal();
     this.listarCategorias();
     this.listarTickets();
-    this.editarTabla();
-  },
+  }
 };
 </script>

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex, { Store } from 'vuex'
 import axios from 'axios'
 
 Vue.use(Vuex)
@@ -12,6 +12,7 @@ export default new Vuex.Store({
     persona: {},
     tickets: [],
     ticket: {},
+    ticketFiltrado: {},
     loading: false
   },
   mutations: {
@@ -29,9 +30,13 @@ export default new Vuex.Store({
     },
     SET_TICKETS(state,tickets){
       state.tickets = tickets;
+      state.ticketFiltrado = tickets;
     },
     SET_TICKET(state, ticket){
       state.ticket = ticket;
+    },
+    SET_TICKETS_FILTRADOS(state, ticket){
+      state.ticketFiltrado = ticket;
     },
     SET_LOADING(state, payload) {
       state.loading = payload;
@@ -136,6 +141,9 @@ export default new Vuex.Store({
       axios.put(`http://localhost:3000/tickets/${id}`, params)
       .then(onComplete)
       .catch(onError)
+    },
+    listarTicketsFiltrados({commit}, {params}){
+      commit("SET_TICKETS_FILTRADOS", params);
     }
   },
   modules: {
