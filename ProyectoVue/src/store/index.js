@@ -10,6 +10,7 @@ export default new Vuex.Store({
     categoria:{},
     personal: [],
     persona: {},
+    tickets:[],
     loading: false
   },
   mutations: {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     SET_PERSONA(state, persona){
       state.persona = persona;
+    },
+    SET_TICKETS(state, tickets){
+      state.tickets = tickets;
     },
     SET_LOADING(state, payload) {
       state.loading = payload;
@@ -95,6 +99,15 @@ export default new Vuex.Store({
       axios.put(`http://localhost:3000/personal/${id}`, params)
       .then(onComplete)
       .catch(onError)
+    },
+    //Tickets
+    listarTickets({commit}){
+      commit("SET_LOADING", true); 
+      axios.get('http://localhost:3000/tickets')
+      .then( response => {
+        commit('SET_TICKETS', response.data);
+      })
+      .finally(() => commit('SET_LOADING', false))
     }
   },
   modules: {
