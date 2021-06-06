@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Inicio from '../views/Inicio.vue'
 import Categorias from '../views/Categorias/Categorias'
 import Personal from '../views/Personal/Personal'
+import Tickets from '../views/Tickets/Tickets'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/personal',
     name: 'personal',
     component: Personal
+  },
+  {
+    path: '/tickets',
+    name: 'tickets',
+    component: Tickets
   }
 ]
 
