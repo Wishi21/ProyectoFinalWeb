@@ -108,7 +108,6 @@ export default new Vuex.Store({
     //Tickets
     listarTickets({commit}){
       commit("SET_LOADING", true);
-      
       axios.get('http://localhost:3000/tickets')
       .then( response => {
         commit('SET_TICKETS', response.data);
