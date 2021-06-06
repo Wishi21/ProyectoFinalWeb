@@ -90,6 +90,6 @@ created() {
         }
     })
     
-}
+  }
 }
 </script>

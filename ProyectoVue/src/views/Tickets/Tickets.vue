@@ -1,6 +1,6 @@
 <template>
   <div class="tickets">
-      <b-container>
+      <b-container fluid>
           <b-row>
               <b-col>
                   <b-button variant="primary" v-b-modal.modal-agregar>Agregar</b-button>
@@ -10,8 +10,17 @@
            <b-row>
                <Table :items="tickets" :fields="campos" :busy="loading">
                     <template slot="actions" slot-scope="{ item }">
-                        <b-button class="me-1" v-b-modal.modal-editar @click="cambiarID(item.item.ID)">Editar</b-button>
-                        <b-button @click="onEliminar(item)">Eliminar</b-button> 
+                        <b-row>
+                          <b-col>
+                            <b-button class="me-1" v-b-modal.modal-editar @click="cambiarID(item.item.ID)">Editar</b-button>
+                          </b-col>
+                          <b-col>
+                            <b-button @click="onEliminar(item)">Eliminar</b-button> 
+                          </b-col>
+                          <b-col>
+                            <b-button class="me-1" v-b-modal.modal-estado @click="cambiarID(item.item.ID)">Estado</b-button>
+                          </b-col>
+                        </b-row>
                     </template>
                 </Table>
           </b-row>          
@@ -21,6 +30,9 @@
           <b-modal id="modal-editar" title="Editar Ticket" hide-footer>
               <EditarTicket :idActual="idActual" />
           </b-modal>
+          <b-modal id="modal-estado" title="Editar Estado" hide-footer>
+              <EstatusTicket :idActual="idActual" />
+          </b-modal>
       </b-container>
   </div>
 </template>
@@ -29,6 +41,7 @@
 import Table from "../../components/tabla";
 import EditarTicket from "./editarTicket";
 import AgregarTicket from "./agregarTicket";
+import EstatusTicket from "./estatusTicket";
 
 
 import { mapState, mapActions } from "vuex";
@@ -38,9 +51,11 @@ export default {
     Table,
     AgregarTicket,
     EditarTicket,
+    EstatusTicket
   },
   data() {
     return {
+      items : [],
       idActual : Number,
       campos: [
         { key: "ID"},
@@ -55,10 +70,30 @@ export default {
     };
   },
   computed: {
-    ...mapState(["tickets", "loading"]),
+    ...mapState(["tickets", "loading","personal","categorias"]),
   },
   methods: {
-      ...mapActions(["listarTickets","eliminarTicket"]),
+      ...mapActions(["listarTickets","eliminarTicket","listarPersonal","listarCategorias"]),
+      editarTabla() {
+        var Aux = [];
+        Object.keys(this.tickets).forEach(key => {
+            const ticket = this.tickets[key];
+            var nombrePersonal = this.personal.filter(function(elem){
+              if(elem.ID == ticket.Personal) return elem[0];
+            });
+            console.log("---------------")
+            console.log(nombrePersonal);
+            Aux = Aux.concat({
+                Nombre: "",
+                Descripcion: "",
+                Prioridad: '0',
+                Personal: nombrePersonal,
+                Categorias: "",
+                Estatus: "ABT",
+                });
+        })
+        this.items=Aux;
+    },
       cambiarID(id){
         this.idActual = id
       },
@@ -97,7 +132,10 @@ export default {
     }
   },
   mounted() {
+    this.listarPersonal();
+    this.listarCategorias();
     this.listarTickets();
+    this.editarTabla();
   },
 };
 </script>
