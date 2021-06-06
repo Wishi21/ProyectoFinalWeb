@@ -3,22 +3,22 @@
       <b-container fluid>
           <b-row>
               <b-col>
-                  <b-button variant="primary" v-b-modal.modal-agregar>Agregar</b-button>
+                  <b-button variant="primary" class="mb-2" v-b-modal.modal-agregar>Agregar</b-button>
               </b-col>
           </b-row>
 
            <b-row>
-               <Table :items="tickets" :fields="campos" :busy="loading">
+               <Table :items="items" :fields="campos" :busy="loading">
                     <template slot="actions" slot-scope="{ item }">
                         <b-row>
                           <b-col>
-                            <b-button class="me-1" v-b-modal.modal-editar @click="cambiarID(item.item.ID)">Editar</b-button>
+                            <b-button variant="dark" class="me-1" v-b-modal.modal-editar @click="cambiarID(item.item.ID)">Editar</b-button>
                           </b-col>
                           <b-col>
-                            <b-button @click="onEliminar(item)">Eliminar</b-button> 
+                            <b-button variant="danger" @click="onEliminar(item)">Eliminar</b-button> 
                           </b-col>
                           <b-col>
-                            <b-button class="me-1" v-b-modal.modal-estado @click="cambiarID(item.item.ID)">Estado</b-button>
+                            <b-button variant="warning" class="me-1" v-b-modal.modal-estado @click="cambiarID(item.item.ID)">Estado</b-button>
                           </b-col>
                         </b-row>
                     </template>
@@ -74,26 +74,56 @@ export default {
   },
   methods: {
       ...mapActions(["listarTickets","eliminarTicket","listarPersonal","listarCategorias"]),
+
       editarTabla() {
-        var Aux = [];
-        Object.keys(this.tickets).forEach(key => {
-            const ticket = this.tickets[key];
-            var nombrePersonal = this.personal.filter(function(elem){
-              if(elem.ID == ticket.Personal) return elem[0];
-            });
-            console.log("---------------")
-            console.log(nombrePersonal);
-            Aux = Aux.concat({
-                Nombre: "",
-                Descripcion: "",
-                Prioridad: '0',
-                Personal: nombrePersonal,
-                Categorias: "",
-                Estatus: "ABT",
-                });
-        })
-        this.items=Aux;
-    },
+          var Aux = [], nombrePersonal=[], nombreCategoria=[], nombreEstatus="",nombrePrioridad="";
+          Object.keys(this.tickets).forEach(key => {
+              const ticket = this.tickets[key];
+              nombrePersonal = this.personal.filter(function(elem){
+                  if(elem.ID == ticket.Personal) return elem;
+          });
+          nombrePersonal = nombrePersonal[0].Nombre;
+            
+          nombreCategoria = this.categorias.filter(function(elem){
+              if(elem.ID == ticket.Categorias) return elem;
+          });
+          nombreCategoria = nombreCategoria[0].Nombre;
+          
+          switch(ticket.Estatus){
+              case "ABT":
+                  nombreEstatus="Abierto"
+                  break;
+              case "ESP":
+                  nombreEstatus="En Espera"
+                  break;
+              case "FIN":
+                  nombreEstatus="Finalizado"
+                  break;
+          }
+          console.log(ticket.Prioridad);
+          switch(ticket.Prioridad){
+              case "1":
+                  console.log("entro1");
+                  nombrePrioridad="BAJA";
+                  break;
+              case "2":
+                  nombrePrioridad="MEDIA";
+                  break;
+              case "3":
+                  nombrePrioridad="ALTA";
+                  break;
+          }
+          Aux = Aux.concat({
+              Nombre: ticket.Nombre,
+              Descripcion: ticket.Descripcion,
+              Prioridad: nombrePrioridad,
+              Personal: nombrePersonal,
+              Categorias: nombreCategoria,
+              Estatus: nombreEstatus,
+              });
+          })
+          this.items=Aux;
+      },
       cambiarID(id){
         this.idActual = id
       },
