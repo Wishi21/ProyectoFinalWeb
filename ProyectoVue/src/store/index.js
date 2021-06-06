@@ -31,6 +31,7 @@ export default new Vuex.Store({
     SET_TICKETS(state,tickets){
       state.tickets = tickets;
       state.ticketFiltrado = tickets;
+      console.log(state.tickets);
     },
     SET_TICKET(state, ticket){
       state.ticket = ticket;

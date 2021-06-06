@@ -29,21 +29,23 @@
             /> <br>
             <label 
                 v-if="erroresValidacion && !validacionPrioridad" 
-                class="text-danger mb-2">
+                class="text-danger">
                     Necesario seleccionar la prioridad
             </label>
         </div>  
 
         
         <div>  
-            <label>Personal:</label><br>
-            <b-form-select
-                v-model="ticket.Personal" 
-                :options = "personalSelect"
-                text-field = "Nombre"
-                value-field = "ID"
-                class="mb-2"
-            /><br>
+            <label class="mt-2">Personal:</label><br>
+            <select v-model="ticket.Personal" @change="seleccionCategoria()">
+                <option value="0">Selecciona al personal</option>
+                <option v-for="(persona, index) in personal" 
+                    :key="index"
+                    :value="persona.ID"
+                    >             
+                        {{persona.Nombre}} 
+                </option>
+            </select><br>
             <label
                 v-if="erroresValidacion && !validacionPersonal" 
                 class="text-danger">
@@ -52,14 +54,16 @@
         </div>  
 
         <div>  
-            <label>Categoria:</label><br>
-            <b-form-select
-                v-model="ticket.Categorias" 
-                :options = "categorias"
-                text-field = "Nombre"
-                value-field = "ID"
-                class="mb-2"
-            /><br>
+            <label class="mt-2">Categoria:</label><br>
+           <select v-model="ticket.Categorias" @change="seleccionCategoria()">
+                <option value="0">Selecciona la categoria</option>
+                <option v-for="(categoria, index) in categorias" 
+                    :key="index"
+                    :value="categoria.ID"
+                    >             
+                        {{categoria.Nombre}} 
+                </option>
+            </select><br>
             <label
                 v-if="erroresValidacion && !validacionCategorias" 
                 class="text-danger">
@@ -100,9 +104,9 @@ export default {
       ticket: {
         Nombre: "",
         Descripcion: "",
-        Prioridad: '0',
-        Personal: "",
-        Categorias: "",
+        Prioridad: "0",
+        Personal: "0",
+        Categorias: "0",
         Estatus: "ABT"
         },
 
@@ -116,22 +120,22 @@ export default {
 
     validacionNombre() {
       return (
-        this.ticket.Nombre !== undefined && this.ticket.Nombre.trim() !== ""
+        this.ticket.Nombre != undefined && this.ticket.Nombre.trim() != ""
       );
     },
     validacionPrioridad() {
       return (
-        this.ticket.Prioridad != 0
+        this.ticket.Prioridad != "0"
       );
     },
     validacionPersonal() {
         return (  
-            this.ticket.Personal !== ""
+            this.ticket.Personal != "0"
         );
     },
     validacionCategorias() {
       return (
-        this.ticket.Categorias !== ""
+        this.ticket.Categorias != "0"
       );
     },
 

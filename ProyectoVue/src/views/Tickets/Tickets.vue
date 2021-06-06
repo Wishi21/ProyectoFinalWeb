@@ -59,8 +59,8 @@ export default {
         { key: "Nombre"},
         { key: "Descripcion"},
         { key: "Prioridad"},
-        { key: "Personal"},
-        { key: "Categorias"},
+        { key: "NombrePersonal", label:"Personal"},
+        { key: "NombreCategoria", label:"Categorias"},
         { key: "Estatus"},
         { key: "actions", label: "Acciones" }
       ],

@@ -1,7 +1,7 @@
 <template>
   <div>
         <b-container>  
-            <div class="mb-2">Categorias:</div>  
+            <label class="mb-2">Categorias: </label><br>  
             <select v-model="selected" class="mb-3" @change="seleccionCategoria()">
                 <option value="0">Todas las categorias</option>
                 <option v-for="(categoria, index) in categorias" 
