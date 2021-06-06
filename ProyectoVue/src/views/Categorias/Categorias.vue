@@ -10,7 +10,6 @@
            <b-row>
                <Table :items="categorias" :fields="campos" :busy="loading">
                     <template slot="actions" slot-scope="{ item }">
-                        <b-button variant="dark" class="me-1" v-b-modal.modal-2 @click="cambiarID(item.item.ID)">Editar</b-button>
                         <b-button variant="danger" @click="onEliminar(item)">Eliminar</b-button> 
                     </template>
                 </Table>
@@ -18,9 +17,6 @@
           
           <b-modal id="modal-1" title="Agregar Categorias" hide-footer>
             <AgregarCategoria/>
-          </b-modal>
-          <b-modal id="modal-2" title="Editar Categorias" hide-footer>
-              <EditarCategoria :idActual="idActual" />
           </b-modal>
             
           
@@ -31,7 +27,6 @@
 
 <script>
 import Table from "../../components/tabla";
-import EditarCategoria from "./editarCategoria";
 import AgregarCategoria from "./agregarCategoria";
 
 
@@ -40,8 +35,7 @@ export default {
   name: "Categorias",
   components: {
     Table,
-    AgregarCategoria,
-    EditarCategoria,
+    AgregarCategoria
   },
   data() {
     return {
@@ -49,7 +43,7 @@ export default {
       campos: [
         { key: "ID"},
         { key: "Nombre"},
-        { key: "actions", label: "Acciones" }
+        { key: "actions", label: "Accion" }
       ],
     };
   },
@@ -93,15 +87,6 @@ export default {
           title: error.data.mensaje
         })
       });
-    },
-    onEditar(){
-     
-      //this.$router.push({
-        //name: "Editar",
-       // params: {
-     //     id: item.item.id,
-   //     },
- //     });
     }
   },
   mounted() {
