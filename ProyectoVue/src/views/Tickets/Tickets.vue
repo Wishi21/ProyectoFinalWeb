@@ -3,7 +3,7 @@
       <b-container fluid>
           <b-row>
               <b-col>
-                  <b-button variant="primary" v-b-modal.modal-agregar>Agregar</b-button>
+                  <b-button variant="primary" class="mb-2" v-b-modal.modal-agregar>Agregar</b-button>
               </b-col>
           </b-row>
 
@@ -12,13 +12,13 @@
                     <template slot="actions" slot-scope="{ item }">
                         <b-row>
                           <b-col>
-                            <b-button class="me-1" v-b-modal.modal-editar @click="cambiarID(item.item.ID)">Editar</b-button>
+                            <b-button variant="dark" class="me-1" v-b-modal.modal-editar @click="cambiarID(item.item.ID)">Editar</b-button>
                           </b-col>
                           <b-col>
-                            <b-button @click="onEliminar(item)">Eliminar</b-button> 
+                            <b-button variant="danger" @click="onEliminar(item)">Eliminar</b-button> 
                           </b-col>
                           <b-col>
-                            <b-button class="me-1" v-b-modal.modal-estado @click="cambiarID(item.item.ID)">Estado</b-button>
+                            <b-button variant="warning" class="me-1" v-b-modal.modal-estado @click="cambiarID(item.item.ID)">Estado</b-button>
                           </b-col>
                         </b-row>
                     </template>
@@ -42,8 +42,6 @@ import Table from "../../components/tabla";
 import EditarTicket from "./editarTicket";
 import AgregarTicket from "./agregarTicket";
 import EstatusTicket from "./estatusTicket";
-
-
 import { mapState, mapActions } from "vuex";
 export default {
   name: "Tickets",
@@ -55,15 +53,14 @@ export default {
   },
   data() {
     return {
-      items : [],
       idActual : Number,
       campos: [
         { key: "ID"},
         { key: "Nombre"},
         { key: "Descripcion"},
         { key: "Prioridad"},
-        { key: "Personal"},
-        { key: "Categorias"},
+        { key: "NombrePersonal", label:"Personal"},
+        { key: "NombreCategoria", label:"Categorias"},
         { key: "Estatus"},
         { key: "actions", label: "Acciones" }
       ],
@@ -74,26 +71,6 @@ export default {
   },
   methods: {
       ...mapActions(["listarTickets","eliminarTicket","listarPersonal","listarCategorias"]),
-      editarTabla() {
-        var Aux = [];
-        Object.keys(this.tickets).forEach(key => {
-            const ticket = this.tickets[key];
-            var nombrePersonal = this.personal.filter(function(elem){
-              if(elem.ID == ticket.Personal) return elem[0];
-            });
-            console.log("---------------")
-            console.log(nombrePersonal);
-            Aux = Aux.concat({
-                Nombre: "",
-                Descripcion: "",
-                Prioridad: '0',
-                Personal: nombrePersonal,
-                Categorias: "",
-                Estatus: "ABT",
-                });
-        })
-        this.items=Aux;
-    },
       cambiarID(id){
         this.idActual = id
       },
@@ -131,11 +108,10 @@ export default {
       });
     }
   },
-  mounted() {
+  created() {
     this.listarPersonal();
     this.listarCategorias();
     this.listarTickets();
-    this.editarTabla();
-  },
+  }
 };
 </script>

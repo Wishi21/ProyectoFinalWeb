@@ -3,7 +3,8 @@ const connection = require('../config/connection');
 
 function listarTickets(req, res) {
     if(connection) {
-        let sql = "SELECT * FROM tickets";
+        //trae tambien los nombres de categoria y personal
+        let sql = "SELECT T.*,CONCAT(P.Nombre,' ',P.Apellidos) as NombrePersonal, C.Nombre as NombreCategoria FROM tickets as T INNER JOIN personal as P ON T.Personal = P.ID INNER JOIN categorias as C ON T.Categorias = C.ID;";
         connection.query(sql, (err, tickets) => {
             if(err) {
                 res.json(err);
