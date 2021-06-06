@@ -11,9 +11,11 @@
 
       // Bootstrap
       <template #cell(actions)="data">
-        <slot name="actions" :item="data"> 
+        <!--<v-container fluid>-->
+          <slot name="actions" :item="data"/> 
+        <!--</v-container>-->
 
-        </slot>
+       
       </template>
     </b-table>
   </div>

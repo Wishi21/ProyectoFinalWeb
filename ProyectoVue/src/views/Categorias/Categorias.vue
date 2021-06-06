@@ -3,17 +3,15 @@
       <b-container>
           <b-row>
               <b-col>
-                  <b-button variant="primary" v-b-modal.modal-1>Agregar</b-button>
+                  <b-button variant="primary" class="mb-2" v-b-modal.modal-1>Agregar</b-button>
               </b-col>
           </b-row>
 
            <b-row>
                <Table :items="categorias" :fields="campos" :busy="loading">
                     <template slot="actions" slot-scope="{ item }">
-                        <!--<b-button class="me-1" @click="onEditar(item)">Editar</b-button>-->
-                        <b-button class="me-1" v-b-modal.modal-2 @click="cambiarID(item.item.ID)">Editar</b-button>
-                          
-                        <b-button @click="onEliminar(item)">Eliminar</b-button> 
+                        <b-button variant="dark" class="me-1" v-b-modal.modal-2 @click="cambiarID(item.item.ID)">Editar</b-button>
+                        <b-button variant="danger" @click="onEliminar(item)">Eliminar</b-button> 
                     </template>
                 </Table>
           </b-row>
