@@ -4,8 +4,8 @@
             <b-row v-for="(ticket, index) in items"
             :key= index
              v-bind:class='{ 
-                 "alert alert-danger": ticket.Estatus == "ESP", 
-                 "alert alert-success": ticket.Estatus == "ABT", 
+                 "alert alert-success": ticket.Estatus == "ESP", 
+                 "alert alert-danger": ticket.Estatus == "ABT", 
                  "alert alert-secondary ": ticket.Estatus == "FIN"
             }'
             >

@@ -18,6 +18,7 @@
           :error="erroresValidacion && !validacionNombre"
           mensajeError="Por favor ingrese el nombre del ticket"
           class="mb-2"
+          :disabled="true"
         />
 
         <Input
