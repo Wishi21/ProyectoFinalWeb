@@ -118,7 +118,7 @@ function eliminarTicket(req, res) {
                 if(data.affectedRows === 0) {
                     mensaje = "Ticket no encontrado";
                 } else {
-                    mensaje = "Ticket elimino con éxito";
+                    mensaje = "El Ticket se elimino con éxito";
                 }
 
                 res.json({error: false, data, mensaje});

@@ -53,7 +53,7 @@ function crear(req, res){
                 console.log(err);
             } else {
             
-                res.json({error: false, data, mensaje: "categorias creada con exito."});
+                res.json({error: false, data, mensaje: "Categoria creada con exito."});
             }
         })
     }
@@ -74,7 +74,7 @@ function editar(req, res) {
                 if(data.changedRows === 0) {
                     mensaje = "La información es la misma"
                 } else {
-                    mensaje = "categorias actualizada con exito."
+                    mensaje = "Categoria actualizada con exito."
                 }
 
                 res.json({error: false, data, mensaje});
@@ -91,13 +91,13 @@ function eliminar(req, res) {
         let sql = "DELETE FROM categorias WHERE id = ?";
         connection.query(sql, [id], (err, data) => {
             if(err) {
-                res.json(err);
+                res.json({error: true, mensaje: "Error al intentar eliminar la categoria"});
             } else {
                 let mensaje = "";
                 if(data.affectedRows === 0) {
-                    mensaje = "categorias no encontrada";
+                    mensaje = "Categoria no encontrada";
                 } else {
-                    mensaje = "categorias elimina con éxito";
+                    mensaje = "Categoria eliminada con éxito";
                 }
 
                 res.json({error: false, data, mensaje});
