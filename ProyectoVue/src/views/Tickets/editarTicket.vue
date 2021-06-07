@@ -18,6 +18,7 @@
           :error="erroresValidacion && !validacionNombre"
           mensajeError="Por favor ingrese el nombre del ticket"
           class="mb-2"
+          :disabled="true"
         />
 
         <Input
@@ -172,7 +173,7 @@ export default {
               type: 'success', 
               title: response.data.mensaje,
             });
-            this.$router.go()
+            setTimeout(() => this.$router.go(), 1000);
           },
           onError: (error) => {
               this.$notify({

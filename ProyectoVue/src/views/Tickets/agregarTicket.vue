@@ -39,7 +39,7 @@
             <label class="mt-2">Personal:</label><br>
             <select v-model="ticket.Personal" @change="seleccionCategoria()">
                 <option value="0">Selecciona al personal</option>
-                <option v-for="(persona, index) in personal" 
+                <option v-for="(persona, index) in personalSelect" 
                     :key="index"
                     :value="persona.ID"
                     >             
@@ -164,7 +164,7 @@ export default {
               type: 'success', 
               title: response.data.mensaje,
             });
-            this.$router.go()
+            setTimeout(() => this.$router.go(), 1000);
           },
           onError: (error) => {
               this.$notify({

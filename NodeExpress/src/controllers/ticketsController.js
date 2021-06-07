@@ -4,7 +4,7 @@ const connection = require('../config/connection');
 function listarTickets(req, res) {
     if(connection) {
         //trae tambien los nombres de categoria y personal
-        let sql = "SELECT T.*,CONCAT(P.Nombre,' ',P.Apellidos) as NombrePersonal, C.Nombre as NombreCategoria FROM tickets as T INNER JOIN personal as P ON T.Personal = P.ID INNER JOIN categorias as C ON T.Categorias = C.ID;";
+        let sql = "SELECT T.*,CONCAT(P.Nombre,' ',P.Apellidos) as NombrePersonal, C.Nombre as NombreCategoria FROM tickets as T INNER JOIN personal as P ON T.Personal = P.ID INNER JOIN categorias as C ON T.Categorias = C.ID ORDER BY ID;";
         connection.query(sql, (err, tickets) => {
             if(err) {
                 res.json(err);
@@ -118,7 +118,7 @@ function eliminarTicket(req, res) {
                 if(data.affectedRows === 0) {
                     mensaje = "Ticket no encontrado";
                 } else {
-                    mensaje = "Ticket elimino con éxito";
+                    mensaje = "El Ticket se elimino con éxito";
                 }
 
                 res.json({error: false, data, mensaje});

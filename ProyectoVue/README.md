@@ -1,4 +1,11 @@
 # proyectofinal
+...
+ProyectoFinal de programacion web
+Integrantes:
+-Aviles Lopez Angel Emmanuel
+-Torres Moreno Guevi Jaziel
+-Torres Gomez Daniel Arnulfo
+...
 
 ## Project setup
 ```

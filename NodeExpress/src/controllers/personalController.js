@@ -97,7 +97,7 @@ function eliminarPersonal(req, res) {
         let sql = "DELETE FROM personal WHERE id = ?";
         connection.query(sql, [id], (err, data) => {
             if(err) {
-                res.json(err);
+                res.json({error: true, mensaje: "Error al intentar eliminar el personal"});
             } else {
                 let mensaje = "";
                 if(data.affectedRows === 0) {

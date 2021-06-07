@@ -92,7 +92,7 @@ export default {
               type: 'success', 
               title: response.data.mensaje,
             });
-            this.$router.go()
+            setTimeout(() => this.$router.go(), 1000);
           },
           onError: (error) => {
               this.$notify({
