@@ -1,16 +1,16 @@
 <template >
   <div id="app" >
-    <b-nav tabs align="center" class="mb-3">
-        <b-nav-item tag="h1"  to="/">
+    <b-nav varient="dark" tabs align="center" class="mb-3 navbar bg-dark" >
+        <b-nav-item class="item" tag="h1"  to="/">
           Inicio
         </b-nav-item>
-        <b-nav-item tag="h1"  to="/categorias">
+        <b-nav-item class="item" tag="h1"  to="/categorias">
           Categorias
         </b-nav-item>
-         <b-nav-item tag="h1"  to="/personal">
+         <b-nav-item class="item" tag="h1"  to="/personal">
           Personal
         </b-nav-item>
-        <b-nav-item tag="h1"  to="/tickets">
+        <b-nav-item toggle-class="itemhover" class="item" tag="h1"  to="/tickets">
           Tickets
         </b-nav-item>
     </b-nav>
@@ -25,7 +25,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #000000;
+}
+
+.item a{
+  color: white;
+}
+
+.itemhover {
+  color: black;
 }
 
 </style>
